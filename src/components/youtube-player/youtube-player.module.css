@@ -1,0 +1,32 @@
+.container{
+  --ratio: calc(640/360);
+  --width: 100vw;
+  --height: calc(100vw / var(--ratio));
+  position: relative;
+  width: var(--width);
+  height: var(--height);
+  overflow: hidden;
+}
+
+.player{
+  --recommendationsHeight: 446px;
+  --scaledHeight: calc(var(--height) + var(--recommendationsHeight) * 2);
+  --verticalOffset: calc(-1 * var(--recommendationsHeight));
+  position: absolute;
+  top: var(--verticalOffset);
+  left: 0;
+  width: var(--width);
+  height: var(--scaledHeight);
+}
+
+.censored .player{
+  filter: blur(16px);
+}
+
+.censor{
+  position: absolute;
+  bottom: 32px;
+  left: 32px;
+  width: 256px;
+  height: 56px;
+}
