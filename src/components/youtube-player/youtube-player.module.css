@@ -4,7 +4,7 @@
   --height: calc(100vw / var(--ratio));
   position: relative;
   width: var(--width);
-  height: var(--height);
+  height: min(var(--height), 100vh);
   overflow: hidden;
 }
 

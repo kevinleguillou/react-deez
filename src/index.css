@@ -9,7 +9,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+:root{
+  --swatch-900: #181923;
+  --swatch-800: #292d41;
+  --swatch-700: #38405d;
+  --swatch-600: #4c546d;
+  --swatch-400: #6f687a;
+  --swatch-300: #8b7983;
+  --swatch-200: #a58d89;
+  --swatch-100: #b59e90;
 }
