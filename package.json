@@ -16,6 +16,7 @@
     "vite-plugin-solid": "^2.5.0"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.26.0",
     "@types/youtube-player": "^5.5.7",
     "classnames": "^2.3.2",
     "solid-js": "^1.6.10",

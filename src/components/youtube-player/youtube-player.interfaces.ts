@@ -8,3 +8,7 @@ export enum PlayerState{
   BUFFERING = 3,
   CUED = 5
 }
+
+export interface PlayerProps{
+  id: string
+}

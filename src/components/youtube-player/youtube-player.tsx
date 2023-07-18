@@ -1,8 +1,9 @@
-import { createEffect, createSignal, onMount } from 'solid-js'
+import { createEffect, createResource, createSignal, onMount } from 'solid-js'
 import YTPlayer from 'youtube-player'
 import styles from '@components/youtube-player/youtube-player.module.css'
 import { YouTubePlayer } from 'youtube-player/dist/types'
-import { PlayerState, StateChangeEvent } from '@components/youtube-player/youtube-player.interfaces'
+import { PlayerProps, PlayerState, StateChangeEvent } from '@components/youtube-player/youtube-player.interfaces'
+import getCensoredSegments from '@/services/censored-segments/get'
 
 const testSegments = [
   { start: 1, end: 3 },
@@ -10,8 +11,9 @@ const testSegments = [
   { start: 10, end: 12 }
 ]
 
-const YoutubePlayer = () => {
+const YoutubePlayer = ({ id }: PlayerProps) => {
   const [player, setPlayer] = createSignal<YouTubePlayer>()
+  const [censoredSegments] = createResource(id, getCensoredSegments)
   const [censored, setCensored] = createSignal(false)
   const [playing, setPlaying] = createSignal(false)
   const playerWrapperClasses = () => ({
@@ -20,9 +22,13 @@ const YoutubePlayer = () => {
   })
 
   const isOnCensoredSegment = (currentTime: number) => {
-    return testSegments.some(entry => (
-      entry.start < currentTime && entry.end > currentTime
-    ))
+    let shouldCensor = false
+    if(censoredSegments.state == 'ready'){
+      shouldCensor = censoredSegments().some(entry => (
+        entry.start < currentTime && entry.end > currentTime
+      ))
+    }
+    return shouldCensor
   }
 
   const onEachFrame = async () => {
@@ -37,7 +43,9 @@ const YoutubePlayer = () => {
       }
     }
 
-    setTimeout(onEachFrame, 33)
+    if(playing()){
+      setTimeout(onEachFrame, 33)
+    }
   }
 
   const onStateChange = (event: StateChangeEvent) => {
@@ -52,7 +60,7 @@ const YoutubePlayer = () => {
   const initPlayer = () => {
     const playerInstance = player()
     if(playerInstance){
-      playerInstance.loadVideoById('zMUhIgoj_W4')
+      playerInstance.loadVideoById(id)
       playerInstance.on("stateChange", onStateChange)
       playerInstance.mute()
       setTimeout(() => {
@@ -72,6 +80,10 @@ const YoutubePlayer = () => {
     setPlayer(playerInstance)
     initPlayer()
     onEachFrame()
+  })
+
+  createEffect(() => {
+    console.log(censoredSegments())
   })
 
   const onCensor = () => {
