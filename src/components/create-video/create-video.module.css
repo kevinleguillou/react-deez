@@ -1,4 +1,36 @@
 .container{
-  
+  display: flex;
+  height: 2.5rem;
+  padding: 0.25rem 0.25rem 0.25rem 1.5rem;
+  gap: .5rem;
+  border: 1px solid var(--swatch-600);
+  border-radius: 2.5rem;
 }
 
+.input{
+  border: none;
+  background: none;
+  color: white;
+  font-size: 1rem;
+}
+
+.input:focus-visible{
+  outline: none;
+}
+
+.input::placeholder{
+  color: var(--swatch-600);
+}
+
+.button{
+  padding: 0 1.5rem;
+  border-radius: 2.5rem;
+  background: linear-gradient(25deg, var(--swatch-700), var(--swatch-400) 125%);
+  color: white;
+  font-weight: bold;
+}
+
+.button:hover{
+  cursor: pointer;
+  background: linear-gradient(25deg, var(--swatch-400), var(--swatch-100) 125%);
+}
