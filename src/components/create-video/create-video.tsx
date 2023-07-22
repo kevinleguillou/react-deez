@@ -25,7 +25,7 @@ const CreateVideo = () => {
         class={styles.button}
         onClick={onClick}
       >
-        Censurer une vidéo
+        Censurer la vidéo
       </button>
     </div>
   )
